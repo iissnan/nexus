@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319060909) do
+ActiveRecord::Schema.define(version: 20170321051448) do
 
   create_table "players", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string   "name",                           null: false
+    t.string   "email",                          null: false
     t.text     "display_name"
     t.text     "avatar"
-    t.integer  "rating"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "rating",          default: 1000
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "password_digest", default: "",   null: false
   end
 
 end

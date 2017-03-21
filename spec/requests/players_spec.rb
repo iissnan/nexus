@@ -46,14 +46,19 @@ RSpec.describe 'Plays API', type: :request do
 
   describe 'POST /players' do
     let(:valid_attributes) {
-      { name: 'Vi', email: 'vincent.cai@ringcentral.com' }
+      {
+          name: 'Vi',
+          email: 'foo@bar.com',
+          password: 'foo_at_bar_dot_com',
+          password_confirmation: 'foo_at_bar_dot_com'
+      }
     }
 
     context 'when the request is valid' do
       before { post '/players', params: valid_attributes }
 
       it 'creates a players' do
-        expect(json['name']).to eq('Vi')
+        expect(json['name']).to eq('vi')
       end
 
       it 'returns status code 201' do
@@ -66,10 +71,6 @@ RSpec.describe 'Plays API', type: :request do
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
-      end
-
-      it 'returns a validation failure message' do
-        expect(response.body).to match(/Validation failed: Email can't be blank/)
       end
     end
   end
