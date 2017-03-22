@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Plays API', type: :request do
-  let!(:players) { create_list(:player, 10) }
-  let(:player_id) { players.first.id }
+RSpec.describe 'Users API', type: :request do
+  let!(:players) { FactoryGirl.create_list(:player, 10) }
+  let(:player_name) { players.first.name }
 
-  describe 'GET /players' do
-    before { get '/players' }
+  describe 'GET /api/users' do
+    before { get '/api/users' }
 
-    it 'returns players' do
+    it 'returns users' do
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
@@ -17,13 +17,13 @@ RSpec.describe 'Plays API', type: :request do
     end
   end
 
-  describe 'GET /players/:id' do
-    before { get "/players/#{player_id}" }
+  describe 'GET /users/:name' do
+    before { get "/api/users/#{player_name}" }
 
     context 'when the record exists' do
-      it 'returns the player' do
+      it 'returns the user' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(player_id)
+        expect(json['name']).to eq(player_name)
       end
 
       it 'returns status code 200' do
@@ -32,7 +32,7 @@ RSpec.describe 'Plays API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:player_id) { 1000 }
+      let(:player_name) { 'non-exist' }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -44,7 +44,7 @@ RSpec.describe 'Plays API', type: :request do
     end
   end
 
-  describe 'POST /players' do
+  describe 'POST /api/users' do
     let(:valid_attributes) {
       {
           name: 'Vi',
@@ -55,9 +55,9 @@ RSpec.describe 'Plays API', type: :request do
     }
 
     context 'when the request is valid' do
-      before { post '/players', params: valid_attributes }
+      before { post '/api/users', params: valid_attributes }
 
-      it 'creates a players' do
+      it 'creates a user' do
         expect(json['name']).to eq('vi')
       end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Plays API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/players', params: { name: 'Foo' } }
+      before { post '/api/users', params: { name: 'Foo' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -75,11 +75,9 @@ RSpec.describe 'Plays API', type: :request do
     end
   end
 
-  describe 'PUT /players/:id' do
-    let(:valid_attributes) { { name: 'X Man' } }
-
+  describe 'PUT /api/users/:name' do
     context 'when the record exists' do
-      before { put "/players/#{player_id}", params: valid_attributes }
+      before { put "/api/users/#{player_name}", params: { display_name: 'X Man' } }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -91,8 +89,8 @@ RSpec.describe 'Plays API', type: :request do
     end
   end
 
-  describe 'DELETE /players/:id' do
-    before { delete "/players/#{player_id}" }
+  describe 'DELETE /api/users/:name' do
+    before { delete "/api/users/#{player_name}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

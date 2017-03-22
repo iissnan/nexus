@@ -14,9 +14,9 @@ RSpec.describe 'Authentications API', type: :request do
     player.destroy
   end
 
-  describe 'POST /login' do
+  describe 'POST /api/login' do
     context 'when the request is valid' do
-      before { post '/login', params: {email: 'foo@bar.com', password: 'foo_bar_baz'} }
+      before { post '/api/login', params: {email: 'foo@bar.com', password: 'foo_bar_baz'} }
 
       it 'should login' do
         expect(json['auth_token']).to_not be_nil
@@ -28,7 +28,7 @@ RSpec.describe 'Authentications API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/login', params: {email: 'foo@bar.com', password: 'foobar'} }
+      before { post '/api/login', params: {email: 'foo@bar.com', password: 'foobar'} }
 
       it 'returns status code 401' do
         puts json

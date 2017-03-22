@@ -4,11 +4,17 @@ class Player < ApplicationRecord
 
   has_secure_password
 
+  def to_param
+    name
+  end
+
   validates_presence_of :name, :email
   validates_uniqueness_of :email, case_sensitive: false
   validates_uniqueness_of :name, case_sensitive: false
   validates_format_of :email, with: /@/
   validates :password, length: { minimum: 6 }
+
+  private
 
   def downcase_email
     self.email = self.email.delete(' ').downcase
