@@ -2,6 +2,9 @@ class Player < ApplicationRecord
   before_save :downcase_email
   before_save :downcase_name
 
+  has_and_belongs_to_many :matches
+  has_and_belongs_to_many :teams
+
   has_secure_password
 
   def to_param
