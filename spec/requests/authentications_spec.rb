@@ -31,7 +31,6 @@ RSpec.describe 'Authentications API', type: :request do
       before { post '/api/login', params: {email: 'foo@bar.com', password: 'foobar'} }
 
       it 'returns status code 401' do
-        puts json
         expect(response).to have_http_status(401)
       end
     end

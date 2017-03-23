@@ -35,17 +35,17 @@ ActiveRecord::Schema.define(version: 20170322113236) do
   end
 
   create_table "players_matches", id: false, force: :cascade do |t|
-    t.integer "players_id"
-    t.integer "matches_id"
-    t.index ["matches_id"], name: "index_players_matches_on_matches_id"
-    t.index ["players_id"], name: "index_players_matches_on_players_id"
+    t.integer "player_id"
+    t.integer "match_id"
+    t.index ["match_id"], name: "index_players_matches_on_match_id"
+    t.index ["player_id"], name: "index_players_matches_on_player_id"
   end
 
   create_table "players_teams", id: false, force: :cascade do |t|
-    t.integer "players_id"
-    t.integer "teams_id"
-    t.index ["players_id"], name: "index_players_teams_on_players_id"
-    t.index ["teams_id"], name: "index_players_teams_on_teams_id"
+    t.integer "player_id"
+    t.integer "team_id"
+    t.index ["player_id"], name: "index_players_teams_on_player_id"
+    t.index ["team_id"], name: "index_players_teams_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(version: 20170322113236) do
   end
 
   create_table "teams_matches", id: false, force: :cascade do |t|
-    t.integer "teams_id"
-    t.integer "matches_id"
-    t.index ["matches_id"], name: "index_teams_matches_on_matches_id"
-    t.index ["teams_id"], name: "index_teams_matches_on_teams_id"
+    t.integer "team_id"
+    t.integer "match_id"
+    t.index ["match_id"], name: "index_teams_matches_on_match_id"
+    t.index ["team_id"], name: "index_teams_matches_on_team_id"
   end
 
 end

@@ -2,8 +2,10 @@ class Player < ApplicationRecord
   before_save :downcase_email
   before_save :downcase_name
 
-  has_and_belongs_to_many :matches
-  has_and_belongs_to_many :teams
+  has_and_belongs_to_many :matches,
+                          join_table: 'players_matches'
+  has_and_belongs_to_many :teams,
+                          join_table: 'players_teams'
 
   has_secure_password
 
