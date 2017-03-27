@@ -2,8 +2,6 @@ require_relative 'api_controller'
 
 module Api::V1
   class PlayersController < ApiController
-    before_action :set_player, only: [:show, :update, :destroy]
-
     def index
       @players = Player.all
       json_response(@players)
@@ -15,15 +13,19 @@ module Api::V1
     end
 
     def show
+      @player = Player.find_by_name!(params[:name])
       json_response(@player)
     end
 
     def update
-      @player.update(player_params)
-      head :no_content
+      @player = Player.find_by_name!(params[:name])
+      if @player.update(player_params)
+        head :no_content
+      end
     end
 
     def destroy
+      @player = Player.find_by_name!(params[:name])
       @player.destroy
       head :no_content
     end
@@ -31,14 +33,10 @@ module Api::V1
     private
 
     def player_params
-      params.permit(
+      params.require(:player).permit(
           :name, :email, :password, :password_confirmation,
           :avatar, :display_name, :rating
       )
-    end
-
-    def set_player
-      @player = Player.find_by_name!(params[:name])
     end
   end
 end
