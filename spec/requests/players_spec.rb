@@ -50,6 +50,7 @@ RSpec.describe 'Users API', type: :request do
           player: {
               name: 'Vi',
               email: 'foo@bar.com',
+              sn: '726fbe85b2',
               password: 'foo_at_bar_dot_com',
               password_confirmation: 'foo_at_bar_dot_com'
           }

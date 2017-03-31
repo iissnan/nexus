@@ -6,6 +6,7 @@ RSpec.describe 'Authentications API', type: :request do
     player = Player.create({
                                email: 'foo@bar.com',
                                name: 'foo',
+                               sn: Faker::Number.number(10),
                                password: 'foo_bar_baz',
                                password_confirmation: 'foo_bar_baz'
                            })
@@ -16,7 +17,10 @@ RSpec.describe 'Authentications API', type: :request do
 
   describe 'POST /api/login' do
     context 'when the request is valid' do
-      before { post '/api/login', params: {email: 'foo@bar.com', password: 'foo_bar_baz'} }
+      before {
+        params = { email: 'foo@bar.com', password: 'foo_bar_baz' }
+        post '/api/login', params: params
+      }
 
       it 'should login' do
         expect(json['auth_token']).to_not be_nil
