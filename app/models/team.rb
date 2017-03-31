@@ -4,5 +4,5 @@ class Team < ApplicationRecord
   has_and_belongs_to_many :matches,
                           join_table: 'teams_matches'
 
-  validates_presence_of :player1_id
+  validates :player1_id, presence: true
 end

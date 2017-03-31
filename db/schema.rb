@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170326172441) do
+ActiveRecord::Schema.define(version: 20170331090856) do
+
+  create_table "match_goals", force: :cascade do |t|
+    t.integer  "match_id"
+    t.integer  "score"
+    t.string   "player1_sn"
+    t.string   "player2_sn"
+    t.datetime "at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_match_goals_on_match_id"
+  end
 
   create_table "matches", force: :cascade do |t|
     t.integer  "home_team_id",    null: false

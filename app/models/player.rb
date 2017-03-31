@@ -13,10 +13,8 @@ class Player < ApplicationRecord
     name
   end
 
-  validates_presence_of :name, :email
-  validates_uniqueness_of :email, case_sensitive: false
-  validates_uniqueness_of :name, case_sensitive: false
-  validates_format_of :email, with: /@/
+  validates :name,  presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: /@/ }
   validates :password, length: { minimum: 6 }
 
   private

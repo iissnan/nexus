@@ -47,10 +47,12 @@ RSpec.describe 'Users API', type: :request do
   describe 'POST /api/users' do
     let(:valid_attributes) {
       {
-          name: 'Vi',
-          email: 'foo@bar.com',
-          password: 'foo_at_bar_dot_com',
-          password_confirmation: 'foo_at_bar_dot_com'
+          player: {
+              name: 'Vi',
+              email: 'foo@bar.com',
+              password: 'foo_at_bar_dot_com',
+              password_confirmation: 'foo_at_bar_dot_com'
+          }
       }
     }
 
@@ -67,7 +69,7 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/users', params: { name: 'Foo' } }
+      before { post '/api/users', params: { player: { name: 'Foo' } } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -77,7 +79,9 @@ RSpec.describe 'Users API', type: :request do
 
   describe 'PUT /api/users/:name' do
     context 'when the record exists' do
-      before { put "/api/users/#{player_name}", params: { display_name: 'X Man' } }
+      before {
+        put "/api/users/#{player_name}", params: { player: { display_name: 'X Man' } }
+      }
 
       it 'updates the record' do
         expect(response.body).to be_empty
