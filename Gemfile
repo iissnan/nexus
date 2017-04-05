@@ -12,6 +12,9 @@ gem 'rails', '~> 5.0.2'
 # Use ActiveModelSerializers . See: https://github.com/rails-api/active_model_serializers
 gem 'active_model_serializers'
 
+# Net::LDAP for Ruby
+gem 'net-ldap'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 

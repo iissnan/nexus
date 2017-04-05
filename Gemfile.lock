@@ -76,6 +76,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    net-ldap (0.16.0)
     nio4r (2.0.0)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -159,6 +160,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   faker
   jwt
+  net-ldap
   puma (~> 3.0)
   rails (~> 5.0.2)
   rspec-rails (~> 3.5)

@@ -1,0 +1,13 @@
+default: &default
+  host: 10.32.51.55
+  domain: rcoffice.ringcentral.com
+  base: DC=rcoffice, DC=ringcentral, DC=com
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

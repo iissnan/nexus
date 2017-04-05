@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :teams
       resources :matches
 
-      post 'login', to: 'authentications#login'
+      post 'login', to: 'authentications#ldap'
     end
   end
 end
