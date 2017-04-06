@@ -9,10 +9,10 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 
-# Use ActiveModelSerializers . See: https://github.com/rails-api/active_model_serializers
+# Use ActiveModelSerializers. See: https://github.com/rails-api/active_model_serializers
 gem 'active_model_serializers'
 
-# Net::LDAP for Ruby
+# Net::LDAP for Ruby. See: https://github.com/ruby-ldap/ruby-net-ldap
 gem 'net-ldap'
 
 # Use sqlite3 as the database for Active Record
@@ -20,6 +20,9 @@ gem 'sqlite3'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+
+# Foreman. See: https://github.com/ddollar/foreman
+gem 'foreman', '~> 0.84.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
