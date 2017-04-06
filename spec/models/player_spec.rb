@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
-  it { should have_secure_password }
   it { should validate_presence_of(:name) }
-  it { should validate_presence_of(:email) }
   it {
     valid_emails = %w[foo@bar.com, foo.bar@baz.com]
     should allow_values(valid_emails).for(:email)

@@ -1,24 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentications API', type: :request do
-  player = nil
-  before :all do
-    player = Player.create({
-                               email: 'foo@bar.com',
-                               name: 'foo',
-                               sn: Faker::Number.number(10),
-                               password: 'foo_bar_baz',
-                               password_confirmation: 'foo_bar_baz'
-                           })
-  end
-  after :all do
-    player.destroy
-  end
-
   describe 'POST /api/login' do
     context 'when the request is valid' do
       before {
-        params = { email: 'foo@bar.com', password: 'foo_bar_baz' }
+        params = { username: 'dpw.automation', password: 'Dadmin123' }
         post '/api/login', params: params
       }
 
@@ -32,7 +18,7 @@ RSpec.describe 'Authentications API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/login', params: {email: 'foo@bar.com', password: 'foobar'} }
+      before { post '/api/login', params: {username: 'foobar', password: 'foobar'} }
 
       it 'returns status code 401' do
         expect(response).to have_http_status(401)

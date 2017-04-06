@@ -4,18 +4,6 @@ require 'net/ldap'
 module Api::V1
   class AuthenticationsController < ApiController
 
-    def login
-      player = Player.find_by(email: params[:email].to_s.downcase)
-
-      if player && player.authenticate(params[:password])
-        auth_token = JsonWebToken.encode({player_id: player.id})
-        json_response auth_token: auth_token
-      else
-        json_response({ error: 'Invalid email / password' }, :unauthorized)
-      end
-    end
-
-
     def ldap
       username = params[:username].to_s.strip.downcase
       principal = "#{username}@#{Rails.configuration.LDAP['domain']}"
@@ -40,10 +28,10 @@ module Api::V1
             user_info = results.first
             player_params = {
                 name: user_info.sAMAccountName.first,
-                email: user_info.mail.first,
-                display_name: user_info.displayName.first || '',
-                password: 'Test!123'
+                display_name: user_info.displayName.first
             }
+            player_params['email'] = user_info.mail.first unless user_info['mail'].to_a.empty?
+
 
             Rails.logger.debug "Creating Player: #{player_params.inspect}"
 
