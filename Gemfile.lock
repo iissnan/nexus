@@ -68,6 +68,19 @@ GEM
     i18n (0.8.1)
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
+    letter_avatar (0.3.5)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -163,6 +176,8 @@ DEPENDENCIES
   faker
   foreman (~> 0.84.0)
   jwt
+  kaminari
+  letter_avatar
   net-ldap
   puma (~> 3.0)
   rails (~> 5.0.2)

@@ -32,6 +32,12 @@ gem 'bcrypt', '~> 3.1.11'
 
 gem 'jwt'
 
+# Pagination. See: https://github.com/kaminari/kaminari
+gem 'kaminari'
+
+# Letter Avatar. See: https://github.com/ksz2k/letter_avatar
+gem 'letter_avatar'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
