@@ -4,12 +4,12 @@ module Api
       before_action { @current_player = authenticate_request! }
 
       def create
-        serial_number = @current_player.serial_number
-        unless serial_number.nil?
-          @current_player.serial_number.destroy!
+        if @current_player.sn.nil?
+          SerialNumber.create!(serial_number_params)
+        else
+          @current_player.sn.update!(serial_number_params)
         end
-        @serial_number = SerialNumber.create!(serial_number_params)
-        json_response(@serial_number, :created)
+        json_response(@current_player.sn)
       end
 
       private

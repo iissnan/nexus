@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407061420) do
+ActiveRecord::Schema.define(version: 20170407111101) do
 
   create_table "match_goals", force: :cascade do |t|
     t.integer  "match_id"
@@ -45,13 +45,6 @@ ActiveRecord::Schema.define(version: 20170407061420) do
     t.datetime "updated_at",                  null: false
   end
 
-  create_table "players_matches", id: false, force: :cascade do |t|
-    t.integer "player_id"
-    t.integer "match_id"
-    t.index ["match_id"], name: "index_players_matches_on_match_id"
-    t.index ["player_id"], name: "index_players_matches_on_player_id"
-  end
-
   create_table "players_teams", id: false, force: :cascade do |t|
     t.integer "player_id"
     t.integer "team_id"
@@ -67,6 +60,15 @@ ActiveRecord::Schema.define(version: 20170407061420) do
     t.index ["player_id"], name: "index_serial_numbers_on_player_id"
   end
 
+  create_table "team_matches", force: :cascade do |t|
+    t.integer  "match_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_team_matches_on_match_id"
+    t.index ["team_id"], name: "index_team_matches_on_team_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string   "name",             default: ""
     t.integer  "player1_id",                    null: false
@@ -79,11 +81,13 @@ ActiveRecord::Schema.define(version: 20170407061420) do
     t.index ["player2_id"], name: "index_teams_on_player2_id"
   end
 
-  create_table "teams_matches", id: false, force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "match_id"
-    t.index ["match_id"], name: "index_teams_matches_on_match_id"
-    t.index ["team_id"], name: "index_teams_matches_on_team_id"
+  create_table "teamworks", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_teamworks_on_player_id"
+    t.index ["team_id"], name: "index_teamworks_on_team_id"
   end
 
 end

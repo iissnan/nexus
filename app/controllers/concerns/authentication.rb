@@ -35,6 +35,7 @@ module Authentication
 
   # Sets the @current_player with the user_id from payload
   def load_current_player!
-    @current_player = Player.find_by(id: payload[0]['player_id'])
+    @current_player = Player.includes(:teams, :serial_number)
+                          .find_by(id: payload[0]['player_id'])
   end
 end

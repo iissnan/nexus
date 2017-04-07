@@ -6,12 +6,9 @@ class Player < ApplicationRecord
   alias_attribute :sn, :serial_number
 
   has_one :serial_number, dependent: :destroy
+  has_many :teamworks
+  has_many :teams, through: :teamworks
 
-  # TODO: Replace with `has_many: :through`
-  has_and_belongs_to_many :matches,
-                          join_table: 'players_matches'
-  has_and_belongs_to_many :teams,
-                          join_table: 'players_teams'
 
   def to_param
     name

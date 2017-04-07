@@ -3,7 +3,7 @@ require_relative 'api_controller'
 module Api::V1
   class MatchesController < ApiController
     def index
-      @matches = Match.all
+      @matches = Match.includes(:teams).all
       json_response(@matches)
     end
 
@@ -12,7 +12,7 @@ module Api::V1
     end
 
     def show
-      @match = Match.find(params[:id])
+      @match = Match.includes(:teams).find(params[:id])
       json_response(@match)
     end
 
