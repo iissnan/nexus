@@ -47,7 +47,7 @@ RSpec.describe 'Users API', type: :request do
   describe 'POST /api/users' do
     let(:valid_attributes) {
       {
-          player: { name: 'Vi', email: 'foo@bar.com', sn: '726fbe85b2' }
+          player: { name: 'Vi', email: 'foo@bar.com' }
       }
     }
 

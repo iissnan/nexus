@@ -7,7 +7,9 @@ Rails.application.routes.draw do
       resources :players,
                 path: :users,
                 param: :name,
-                constraints: { name: %r{[^\/]+} }
+                constraints: { name: %r{[^\/]+} } do
+        post 'sn', to: 'serial_numbers#create'
+      end
       resources :teams
       resources :matches
 

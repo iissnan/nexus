@@ -9,12 +9,17 @@ module Authentication
     end
 
     load_current_player!
-    invalid_authentication unless @current_player
+
+    if @current_player
+      @current_player
+    else
+      invalid_authentication
+    end
   end
 
   # Returns 401 response. To handle malformed / invalid requests.
   def invalid_authentication
-    render json: {error: 'Invalid Request'}, status: :unauthorized
+    render json: {message: 'Invalid Request'}, status: :unauthorized
   end
 
   private
@@ -30,6 +35,6 @@ module Authentication
 
   # Sets the @current_player with the user_id from payload
   def load_current_player!
-    @current_player = User.find_by(id: payload[0]['player_id'])
+    @current_player = Player.find_by(id: payload[0]['player_id'])
   end
 end
