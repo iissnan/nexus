@@ -28,7 +28,7 @@ gem 'foreman', '~> 0.84.0'
 # gem 'redis', '~> 3.0'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.11'
+#gem 'bcrypt', '~> 3.1.11'
 
 gem 'jwt'
 

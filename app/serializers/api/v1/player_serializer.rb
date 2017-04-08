@@ -2,7 +2,12 @@ class Api::V1::PlayerSerializer < ActiveModel::Serializer
   attributes :id, :name, :display_name, :email, :avatar, :rating
 
   has_many :teams
-  has_one :sn
+
+  attribute :sn do
+    object.serial_number.nil? ?
+        nil :
+        object.serial_number.number
+  end
 
   attribute :matches do
     object.teams.reduce([]) do |matches, team|
