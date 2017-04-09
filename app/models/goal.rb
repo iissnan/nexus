@@ -1,4 +1,4 @@
-class MatchGoal < ApplicationRecord
+class Goal < ApplicationRecord
   belongs_to :match
 
   validates :match_id, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409134904) do
+ActiveRecord::Schema.define(version: 20170409164419) do
 
   create_table "contracts", force: :cascade do |t|
     t.integer  "serial_number_id"
@@ -21,7 +21,16 @@ ActiveRecord::Schema.define(version: 20170409134904) do
     t.index ["team_id"], name: "index_contracts_on_team_id"
   end
 
-  create_table "match_goals", force: :cascade do |t|
+  create_table "fights", force: :cascade do |t|
+    t.integer  "match_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_fights_on_match_id"
+    t.index ["team_id"], name: "index_fights_on_team_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
     t.integer  "match_id"
     t.integer  "score"
     t.string   "player1_sn"
@@ -29,22 +38,39 @@ ActiveRecord::Schema.define(version: 20170409134904) do
     t.datetime "at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_match_goals_on_match_id"
+    t.index ["match_id"], name: "index_goals_on_match_id"
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer  "home_team_id",    null: false
-    t.integer  "away_team_id",    null: false
-    t.integer  "home_team_score", null: false
-    t.integer  "away_team_score", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "match_type"
-    t.index ["away_team_id"], name: "index_matches_on_away_team_id"
-    t.index ["home_team_id"], name: "index_matches_on_home_team_id"
+    t.integer  "team1_id",   null: false
+    t.integer  "team2_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team1_id"], name: "index_matches_on_team1_id"
+    t.index ["team2_id"], name: "index_matches_on_team2_id"
   end
 
-  create_table "players", force: :cascade do |t|
+  create_table "serial_numbers", force: :cascade do |t|
+    t.string   "number",     null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_serial_numbers_on_user_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name",         default: ""
+    t.string   "sn1",                       null: false
+    t.string   "sn2"
+    t.integer  "sn1_position"
+    t.integer  "sn2_position"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["sn1"], name: "index_teams_on_sn1"
+    t.index ["sn2"], name: "index_teams_on_sn2"
+  end
+
+  create_table "users", force: :cascade do |t|
     t.string   "name",                        null: false
     t.string   "email"
     t.text     "display_name"
@@ -52,40 +78,6 @@ ActiveRecord::Schema.define(version: 20170409134904) do
     t.integer  "rating",       default: 2000
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-  end
-
-  create_table "players_teams", id: false, force: :cascade do |t|
-    t.integer "player_id"
-    t.integer "team_id"
-    t.index ["player_id"], name: "index_players_teams_on_player_id"
-    t.index ["team_id"], name: "index_players_teams_on_team_id"
-  end
-
-  create_table "serial_numbers", force: :cascade do |t|
-    t.string   "number",     null: false
-    t.integer  "player_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["player_id"], name: "index_serial_numbers_on_player_id"
-  end
-
-  create_table "team_matches", force: :cascade do |t|
-    t.integer  "match_id"
-    t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["match_id"], name: "index_team_matches_on_match_id"
-    t.index ["team_id"], name: "index_team_matches_on_team_id"
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.string   "name",         default: ""
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "sn1",                       null: false
-    t.string   "sn2"
-    t.integer  "sn1_position"
-    t.integer  "sn2_position"
   end
 
 end

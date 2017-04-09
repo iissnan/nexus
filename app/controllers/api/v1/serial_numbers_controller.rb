@@ -1,24 +1,24 @@
+require_relative 'api_controller'
+
 module Api
   module V1
-    class SerialNumbersController < ApplicationController
-      before_action { @current_player = authenticate_request! }
+    class SerialNumbersController < ApiController
+      before_action { @current_user = authenticate_request! }
 
       def create
-        if @current_player.sn.nil?
+        if @current_user.serial_number.nil?
           SerialNumber.create!(serial_number_params)
         else
-          @current_player.sn.update!(serial_number_params)
+          @current_user.serial_number.update!(serial_number_params)
         end
-        json_response(@current_player.sn)
+        json_response(@current_user.serial_number)
       end
 
       private
 
       def serial_number_params
-        params.require(:serial_number).permit(:number).merge(player_id: @current_player.id)
+        params.require(:serial_number).permit(:number).merge(user_id: @current_user.id)
       end
-
     end
-
   end
 end

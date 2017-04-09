@@ -1,6 +1,6 @@
 class SerialNumber < ApplicationRecord
   before_save { self.number = self.number.to_s.downcase }
-  belongs_to :player
+  belongs_to :user
   has_many :contracts
   has_many :teams, through: :contracts
 

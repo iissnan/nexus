@@ -1,4 +1,4 @@
-class Api::V1::PlayerSerializer < ActiveModel::Serializer
+class Api::V1::UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :display_name, :email, :avatar, :rating
 
   attribute :sn do

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
-  let!(:players) { create_list(:player, 10) }
-  let(:player_name) { players.first.name }
+  let!(:users) { create_list(:user, 10) }
+  let(:user_name) { users.first.name }
   let(:headers) { { 'CONTENT_TYPE': 'application/json' } }
 
   describe 'GET /api/users' do
@@ -19,12 +19,12 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'GET /users/:name' do
-    before { get "/api/users/#{player_name}" }
+    before { get "/api/users/#{user_name}" }
 
     context 'when the record exists' do
       it 'returns the user' do
         expect(json).not_to be_empty
-        expect(json['name']).to eq(player_name)
+        expect(json['name']).to eq(user_name)
       end
 
       it 'returns status code 200' do
@@ -33,14 +33,14 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:player_name) { 'non-exist' }
+      let(:user_name) { 'non-exist' }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find Player/)
+        expect(response.body).to match(/Couldn't find User/)
       end
     end
   end
@@ -48,12 +48,12 @@ RSpec.describe 'Users API', type: :request do
   describe 'POST /api/users' do
     context 'when the request is valid' do
       before {
-        params = { name: 'Vi', email: 'foo@bar.com' }.to_json
+        params = { name: 'Foo', email: 'foo@bar.com' }.to_json
         post '/api/users', params: params, headers: headers
       }
 
       it 'creates a user' do
-        expect(json['name']).to eq('vi')
+        expect(json['name']).to eq('foo')
       end
 
       it 'returns status code 201' do
@@ -77,7 +77,7 @@ RSpec.describe 'Users API', type: :request do
     context 'when the record exists' do
       before {
         params = { display_name: 'X Man' }.to_json
-        put "/api/users/#{player_name}", params: params, headers: headers
+        put "/api/users/#{user_name}", params: params, headers: headers
       }
 
       it 'updates the record' do
@@ -91,7 +91,7 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'DELETE /api/users/:name' do
-    before { delete "/api/users/#{player_name}" }
+    before { delete "/api/users/#{user_name}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

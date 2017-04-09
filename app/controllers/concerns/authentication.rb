@@ -8,10 +8,10 @@ module Authentication
       return invalid_authentication
     end
 
-    load_current_player!
+    load_current_user
 
-    if @current_player
-      @current_player
+    if @current_user
+      @current_user
     else
       invalid_authentication
     end
@@ -34,8 +34,8 @@ module Authentication
   end
 
   # Sets the @current_player with the user_id from payload
-  def load_current_player!
-    @current_player = Player.includes(:teams, :serial_number)
-                          .find_by(id: payload[0]['player_id'])
+  def load_current_user
+    @current_user = User.includes(:serial_number)
+                          .find_by(id: payload[0]['user_id'])
   end
 end

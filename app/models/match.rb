@@ -1,8 +1,8 @@
 class Match < ApplicationRecord
-  has_many :team_matches
-  has_many :teams, through: :team_matches
-  has_many :match_goals
+  has_many :fights
+  has_many :teams, through: :fights
+  has_many :goals
 
-  validates :home_team_id, presence: true
-  validates :away_team_id, presence: true
+  validates :team1_id, presence: true
+  validates :team2_id, presence: true
 end

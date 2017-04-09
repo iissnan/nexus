@@ -9,21 +9,21 @@ require 'Faker'
 
 case Rails.env
   when 'development'
-    foo = Player.create!(name: 'foo@example.com')
+    foo = User.create!(name: 'foo@example.com')
     foo.create_serial_number(number: '1234567890')
-    bar = Player.create!(name: 'bar@example.com')
+    bar = User.create!(name: 'bar@example.com')
     bar.create_serial_number(number: '1234567891')
 
     puts 'Generate Players and Serial Numbers.'
     30.times do
       name = Faker::Internet.user_name
-      if Player.find_by_name(name)
+      if User.find_by_name(name)
         print "Found User: #{name}."
-        player = Player.find_by_name(name)
+        player = User.find_by_name(name)
       else
         print "Creat user: #{name}."
         params = { name: name, email: Faker::Internet.email }
-        player = Player.create!(params)
+        player = User.create!(params)
       end
 
       if player.serial_number.nil?
@@ -35,11 +35,11 @@ case Rails.env
 
     puts 'Generate couple teams.'
     30.times do
-      sn1 = Player.find(1 + (rand 30)).serial_number
-      sn2 = Player.find(1 + (rand 30)).serial_number
+      sn1 = User.find(1 + (rand 30)).serial_number
+      sn2 = User.find(1 + (rand 30)).serial_number
 
       until sn1 != sn2
-        sn2 = Player.find(1 + (rand 30)).serial_number
+        sn2 = User.find(1 + (rand 30)).serial_number
       end
 
       team = Team.create!({ sn1: sn1.number, sn2: sn2.number, sn1_position: 1, sn2_position: 0 })
@@ -55,7 +55,7 @@ case Rails.env
 
     puts 'Generate solo teams.'
     30.times do
-      sn1 = Player.find(1 + (rand 30)).serial_number
+      sn1 = User.find(1 + (rand 30)).serial_number
       team = Team.create!({ sn1: sn1.number })
       team.contracts.find_or_create_by!({ serial_number_id: sn1.id, team_id: team.id })
       print 'Team created: '

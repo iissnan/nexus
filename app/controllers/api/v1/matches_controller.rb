@@ -30,15 +30,7 @@ module Api
       private
 
       def match_params
-        params.require(:match).permit(
-            :home_team_id,
-            :away_team_id,
-            :home_team_score,
-            :away_team_score,
-            :created_at,
-            :updated_at,
-            :type
-        )
+        params.require(:match).permit(:team1_id, :team2_id, :created_at, :updated_at)
       end
   end
   end

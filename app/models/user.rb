@@ -1,7 +1,7 @@
-class Player < ApplicationRecord
+class User < ApplicationRecord
   before_save { self.email = self.email.to_s.delete(' ').downcase }
   before_save { self.name = self.name.delete(' ').downcase }
-  before_save { self.display_name = self.name unless self.display_name.nil? }
+  before_save { self.display_name = self.name if self.display_name.nil? }
 
   has_one :serial_number, dependent: :destroy
 
