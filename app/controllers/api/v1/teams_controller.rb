@@ -9,7 +9,15 @@ module Api
       end
 
       def create
-        @team = Team.create!(team_params)
+        find_params = { sn1: params[:sn1] }
+        find_params[:sn2] = params[:sn2].blank? ? params[:sn2] : nil
+
+        @team = Team.find_or_initialize_by(find_params)
+
+        unless @team.persisted?
+          @team = Team.create!(team_params)
+        end
+
         json_response(@team, :created)
       end
 
@@ -24,6 +32,7 @@ module Api
       end
 
       def destroy
+        @team = Team.find(params[:id])
         @team.destroy
         head :no_content
       end
@@ -31,13 +40,7 @@ module Api
       private
 
       def team_params
-        params.require(:team).permit(
-            :name,
-            :player1_id,
-            :player2_id,
-            :player1_position,
-            :player2_position
-        )
+        params.require(:team).permit(:name, :sn1, :sn2, :sn1_position, :sn2_position)
       end
     end
   end

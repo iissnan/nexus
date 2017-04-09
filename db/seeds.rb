@@ -5,15 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
 require 'Faker'
-
-def get_random_player(players)
-  players[rand(players.size)]
-end
 
 case Rails.env
   when 'development'
+    foo = Player.create!(name: 'foo@example.com')
+    foo.create_serial_number(number: '1234567890')
+    bar = Player.create!(name: 'bar@example.com')
+    bar.create_serial_number(number: '1234567891')
+
     30.times do
       name = Faker::Internet.user_name
       if Player.find_by_name(name)
@@ -31,7 +31,6 @@ case Rails.env
         player.create_serial_number(number: number)
       end
     end
-
   else
     # pass
 end
