@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
-  let!(:players) { FactoryGirl.create_list(:player, 10) }
+  let!(:players) { create_list(:player, 10) }
   let(:player_name) { players.first.name }
+  let(:headers) { { 'CONTENT_TYPE': 'application/json' } }
 
   describe 'GET /api/users' do
     before { get '/api/users' }
@@ -45,14 +46,11 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'POST /api/users' do
-    let(:valid_attributes) {
-      {
-          player: { name: 'Vi', email: 'foo@bar.com' }
-      }
-    }
-
     context 'when the request is valid' do
-      before { post '/api/users', params: valid_attributes }
+      before {
+        params = { name: 'Vi', email: 'foo@bar.com' }.to_json
+        post '/api/users', params: params, headers: headers
+      }
 
       it 'creates a user' do
         expect(json['name']).to eq('vi')
@@ -64,7 +62,10 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/api/users', params: { player: { email: 'foo@bar.com' } } }
+      before {
+        params = { email: 'foo@bar.com' }.to_json
+        post '/api/users', params: params, headers: headers
+      }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -75,7 +76,8 @@ RSpec.describe 'Users API', type: :request do
   describe 'PUT /api/users/:name' do
     context 'when the record exists' do
       before {
-        put "/api/users/#{player_name}", params: { player: { display_name: 'X Man' } }
+        params = { display_name: 'X Man' }.to_json
+        put "/api/users/#{player_name}", params: params, headers: headers
       }
 
       it 'updates the record' do

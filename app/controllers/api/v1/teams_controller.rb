@@ -31,7 +31,7 @@ module Api
       private
 
       def team_params
-        params.permit(
+        params.require(:team).permit(
             :name,
             :player1_id,
             :player2_id,
