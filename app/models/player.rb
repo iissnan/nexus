@@ -4,13 +4,14 @@ class Player < ApplicationRecord
   before_save { self.display_name = self.name unless self.display_name.nil? }
 
   has_one :serial_number, dependent: :destroy
-  has_many :teamworks
-  has_many :teams, through: :teamworks
 
   def to_param
     name
   end
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :email, allow_blank: true, uniqueness: { case_sensitive: false }, format: { with: /@/ }
+  validates :email,
+            allow_blank: true,
+            uniqueness: { case_sensitive: false },
+            format: { with: /@/ }
 end

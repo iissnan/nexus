@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409072150) do
+ActiveRecord::Schema.define(version: 20170409134904) do
+
+  create_table "contracts", force: :cascade do |t|
+    t.integer  "serial_number_id"
+    t.integer  "team_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["serial_number_id"], name: "index_contracts_on_serial_number_id"
+    t.index ["team_id"], name: "index_contracts_on_team_id"
+  end
 
   create_table "match_goals", force: :cascade do |t|
     t.integer  "match_id"
@@ -77,15 +86,6 @@ ActiveRecord::Schema.define(version: 20170409072150) do
     t.string   "sn2"
     t.integer  "sn1_position"
     t.integer  "sn2_position"
-  end
-
-  create_table "teamworks", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "player_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["player_id"], name: "index_teamworks_on_player_id"
-    t.index ["team_id"], name: "index_teamworks_on_team_id"
   end
 
 end

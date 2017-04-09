@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Player, type: :model do
+  it { should have_one :serial_number }
   it { should validate_presence_of(:name) }
   it {
     valid_emails = %w[foo@bar.com, foo.bar@baz.com]

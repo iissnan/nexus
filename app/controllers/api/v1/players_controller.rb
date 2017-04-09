@@ -4,7 +4,7 @@ module Api
   module V1
     class PlayersController < ApiController
       def index
-        @players = Player.includes(:teams, :serial_number).all
+        @players = Player.includes(serial_number: [teams: [:matches]]).all
         json_response(@players)
       end
 
@@ -14,7 +14,7 @@ module Api
       end
 
       def show
-        @player = Player.includes(:teams, :serial_number).find_by_name!(params[:name])
+        @player = Player.includes(:serial_number).find_by_name!(params[:name])
         json_response(@player)
       end
 
