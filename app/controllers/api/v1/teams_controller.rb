@@ -37,10 +37,24 @@ module Api
         head :no_content
       end
 
+      def matches
+        @matches = Match.includes(match_includes)
+                       .joins(:teams)
+                       .where('team_id = ?', params[:id])
+        json_response(@matches)
+      end
+
       private
 
       def team_params
         params.require(:team).permit(:name, :sn1, :sn2, :sn1_position, :sn2_position)
+      end
+
+      def match_includes
+        {
+            teams: [serial_numbers: [:user]],
+            goals: [team: [serial_numbers: [:user]]]
+        }
       end
     end
   end
