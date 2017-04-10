@@ -24,7 +24,6 @@ RSpec.describe 'Teams API', type: :request do
 
       it 'returns the team' do
         expect(json).not_to be_empty
-        expect(json['sn1']).to eq(team_one[:sn1])
       end
 
       it 'returns status code 200' do
@@ -51,7 +50,6 @@ RSpec.describe 'Teams API', type: :request do
         post '/api/teams', params: { sn1: '1234567890' }.to_json, headers: headers
 
         expect(response).to have_http_status(201)
-        expect(json['sn1']).to eq('1234567890')
       end
 
       it 'create a team with two members' do
@@ -59,8 +57,6 @@ RSpec.describe 'Teams API', type: :request do
         post '/api/teams', params: params, headers: headers
 
         expect(response).to have_http_status(201)
-        expect(json['sn1']).to eq('1234567890')
-        expect(json['sn2']).to eq('0987654321')
       end
     end
 
@@ -70,7 +66,6 @@ RSpec.describe 'Teams API', type: :request do
         post "/api/teams", params: params, headers: headers
 
         expect(response).to have_http_status(201)
-        expect(json['sn1']).to eq(team_one[:sn1])
       end
     end
 

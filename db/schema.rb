@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409164419) do
+ActiveRecord::Schema.define(version: 20170410045215) do
 
   create_table "contracts", force: :cascade do |t|
     t.integer  "serial_number_id"
@@ -32,13 +32,15 @@ ActiveRecord::Schema.define(version: 20170409164419) do
 
   create_table "goals", force: :cascade do |t|
     t.integer  "match_id"
+    t.integer  "team_id"
     t.integer  "score"
-    t.string   "player1_sn"
-    t.string   "player2_sn"
+    t.string   "sn1",        null: false
+    t.string   "sn2"
     t.datetime "at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_goals_on_match_id"
+    t.index ["team_id"], name: "index_goals_on_team_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -48,6 +50,15 @@ ActiveRecord::Schema.define(version: 20170409164419) do
     t.datetime "updated_at", null: false
     t.index ["team1_id"], name: "index_matches_on_team1_id"
     t.index ["team2_id"], name: "index_matches_on_team2_id"
+  end
+
+  create_table "scorings", force: :cascade do |t|
+    t.integer  "serial_number_id"
+    t.integer  "goal_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["goal_id"], name: "index_scorings_on_goal_id"
+    t.index ["serial_number_id"], name: "index_scorings_on_serial_number_id"
   end
 
   create_table "serial_numbers", force: :cascade do |t|

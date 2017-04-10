@@ -9,7 +9,9 @@ Rails.application.routes.draw do
       end
 
       resources :teams
-      resources :matches
+      resources :matches do
+        resources :goals
+      end
 
       post 'login', to: 'authentications#ldap'
     end

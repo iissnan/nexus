@@ -64,6 +64,55 @@ case Rails.env
       puts ''
     end
 
+    puts 'Generate matches.'
+    20.times do
+      team1 = Team.find(1 + (rand 30))
+      team2 = Team.find(1 + (rand 30))
+      until team2.id != team1.id
+        team2 = Team.find(1 + (rand 30))
+      end
+
+      match = Match.create!({ team1_id: team1.id, team2_id: team2.id })
+      match.fights.find_or_create_by!({ team_id: team1.id, match_id: match.id })
+      match.fights.find_or_create_by!({ team_id: team2.id, match_id: match.id })
+
+      print 'Match created: '
+      print "  id : #{match.id}"
+      print "  team1: #{team1.id}"
+      print "  team2: #{team2.id}"
+      puts ''
+
+      team1_score = 0
+      team2_score = 0
+
+      while team1_score < 5 and team2_score < 5
+        if rand(2) === 0
+          scoring_team = team1
+          sn1 = team1.sn1
+          sn2 = team1.sn2
+          team1_score += 1
+        else
+          scoring_team = team2
+          sn1 = team2.sn1
+          sn2 = team2.sn2
+          team2_score += 1
+        end
+        goal_params = {
+            match_id: match.id,
+            team_id: scoring_team.id,
+            score: 1,
+            sn1: sn1,
+            sn2: sn2,
+            at: Time.current + 30
+        }
+        goal = match.goals.create!(goal_params)
+        print '  Goal created: '
+        print "    id: #{goal.id}"
+        print " team: #{scoring_team.id}"
+        puts ''
+      end
+    end
+
   else
     # pass
 end
