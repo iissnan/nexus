@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         post 'sn', to: 'serial_numbers#create'
         member do
           get 'matches'
+          get 'teams'
         end
       end
 

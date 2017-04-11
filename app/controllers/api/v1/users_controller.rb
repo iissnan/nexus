@@ -39,6 +39,14 @@ module Api
         json_response(@matches)
       end
 
+      def teams
+        @user = User.find_by_name!(params[:name])
+        @teams = Team.includes(:matches, serial_numbers: [:user])
+                     .joins(:serial_numbers)
+                     .where('serial_number_id = ?', @user.serial_number)
+        json_response(@teams)
+      end
+
       private
 
       def user_params
