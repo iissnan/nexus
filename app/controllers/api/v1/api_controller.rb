@@ -8,7 +8,7 @@ module Api
       def match_includes
         {
             teams: [serial_numbers: [:user]],
-            goals: [team: [serial_numbers: [:user]]]
+            goals: []
         }
       end
     end
