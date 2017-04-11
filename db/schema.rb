@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409164419) do
+ActiveRecord::Schema.define(version: 20170411044722) do
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "serial_number_id"
+    t.integer  "match_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["match_id"], name: "index_attendances_on_match_id"
+    t.index ["serial_number_id"], name: "index_attendances_on_serial_number_id"
+  end
 
   create_table "contracts", force: :cascade do |t|
     t.integer  "serial_number_id"

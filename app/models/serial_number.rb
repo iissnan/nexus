@@ -3,6 +3,8 @@ class SerialNumber < ApplicationRecord
   belongs_to :user
   has_many :contracts
   has_many :teams, through: :contracts
+  has_many :attendances
+  has_many :matches, through: :attendances
 
   validates :number, presence: true, uniqueness: true
 end

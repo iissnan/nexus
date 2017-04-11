@@ -4,7 +4,7 @@ module Api
   module V1
     class MatchesController < ApiController
       def index
-        @matches = Match.includes(includes).all
+        @matches = Match.includes(match_includes).all
         json_response(@matches)
       end
 
@@ -14,7 +14,7 @@ module Api
       end
 
       def show
-        @match = Match.includes(includes).find(params[:id])
+        @match = Match.includes(match_includes).find(params[:id])
         json_response(@match)
       end
 
@@ -35,13 +35,6 @@ module Api
         params
             .require(:match)
             .permit(:team1_id, :team2_id, :created_at, :updated_at)
-      end
-
-      def includes
-        {
-            teams: [serial_numbers: [:user]],
-            goals: [team: [serial_numbers: [:user]]]
-        }
       end
     end
   end

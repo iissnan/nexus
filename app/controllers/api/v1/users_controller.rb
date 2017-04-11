@@ -31,6 +31,14 @@ module Api
         head :no_content
       end
 
+      def matches
+        @user = User.find_by_name!(params[:name])
+        @matches = Match.includes(match_includes)
+                       .joins(:serial_numbers)
+                       .where('serial_number_id = ?', @user.serial_number)
+        json_response(@matches)
+      end
+
       private
 
       def user_params

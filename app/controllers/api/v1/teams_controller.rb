@@ -49,13 +49,6 @@ module Api
       def team_params
         params.require(:team).permit(:name, :sn1, :sn2, :sn1_position, :sn2_position)
       end
-
-      def match_includes
-        {
-            teams: [serial_numbers: [:user]],
-            goals: [team: [serial_numbers: [:user]]]
-        }
-      end
     end
   end
 end

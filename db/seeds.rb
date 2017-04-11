@@ -9,9 +9,9 @@ require 'Faker'
 
 case Rails.env
   when 'development'
-    foo = User.create!(name: 'foo@example.com')
+    foo = User.create!(name: 'foo')
     foo.create_serial_number(number: '1234567890')
-    bar = User.create!(name: 'bar@example.com')
+    bar = User.create!(name: 'bar')
     bar.create_serial_number(number: '1234567891')
 
     puts 'Generate Players and Serial Numbers.'
@@ -73,8 +73,6 @@ case Rails.env
       end
 
       match = Match.create!({ team1_id: team1.id, team2_id: team2.id })
-      match.fights.find_or_create_by!({ team_id: team1.id, match_id: match.id })
-      match.fights.find_or_create_by!({ team_id: team2.id, match_id: match.id })
 
       print 'Match created: '
       print "  id : #{match.id}"
@@ -82,6 +80,33 @@ case Rails.env
       print "  team2: #{team2.id}"
       puts ''
 
+      puts '  Adding Match and Team association'
+      match.fights.find_or_create_by!({ team_id: team1.id, match_id: match.id })
+      match.fights.find_or_create_by!({ team_id: team2.id, match_id: match.id })
+
+      puts '  Adding Match and SerialNumber association'
+      match.attendances.find_or_create_by!({
+                                               match_id: match.id,
+                                               serial_number_id: team1.serial_numbers[0].id
+                                           })
+      unless team1.serial_numbers[1].nil?
+        match.attendances.find_or_create_by!({
+                                                 match_id: match.id,
+                                                 serial_number_id: team1.serial_numbers[1].id
+                                             })
+      end
+      match.attendances.find_or_create_by!({
+                                               match_id: match.id,
+                                               serial_number_id: team2.serial_numbers[0].id
+                                           })
+      unless team1.serial_numbers[1].nil?
+        match.attendances.find_or_create_by!({
+                                                 match_id: match.id,
+                                                 serial_number_id: team2.serial_numbers[1].id
+                                             })
+      end
+
+      puts '  Creating Goals...'
       team1_score = 0
       team2_score = 0
 
