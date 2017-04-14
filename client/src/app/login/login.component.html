@@ -1,3 +1,49 @@
-<p>
-  login works!
-</p>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+
+    </div>
+    <a class="navbar-brand" href="/">
+      <i class="fa fa-wpexplorer"></i>
+    </a>
+  </div>
+</nav>
+
+<div class="container">
+  <form class="login-form panel panel-primary center-block"
+        #loginForm="ngForm" (ngSubmit)="login()">
+    <div class="panel-heading">
+        <h3>Sign In <small>with your LDAP account</small></h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="userName">Username</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-user"></i>
+          </span>
+          <input type="text" class="form-control" id="userName"
+                 placeholder="Username" required
+                 [(ngModel)]="model.username" name="username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-lock"></i>
+          </span>
+          <input type="password" class="form-control" id="password"
+                 placeholder="Password" required
+                 [(ngModel)]="model.password" name="password">
+        </div>
+      </div>
+      <p>
+        <button type="submit" class="btn btn-danger btn-sm login-button"
+                [disabled]="!loginForm.valid">
+          Sign In
+        </button>
+      </p>
+    </div>
+  </form>
+</div>

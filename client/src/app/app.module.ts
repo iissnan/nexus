@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from "./app-routing.module";
 import { UsersModule } from './users/users.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    CoreModule,
     AppRoutingModule,
     UsersModule
   ],

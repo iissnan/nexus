@@ -1,0 +1,15 @@
+.login-form {
+  margin-top: 60px;
+  width: 500px;
+}
+
+.login-button {
+  margin-top: 10px;
+  width: 120px;
+}
+
+[disabled].login-button {
+  color: #888;
+  border-color: #eee;
+  background: #eee;
+}

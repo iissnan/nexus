@@ -1,1 +1,27 @@
-@import "~bootstrap/scss/bootstrap";
+@import "global/flatly/variables";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "global/flatly/flatly";
+
+$fa-font-path: "~font-awesome/fonts/";
+@import "~font-awesome/scss/font-awesome";
+
+$font-base: "PingFang SC", "Microsoft YaHei", sans-serif;
+
+body {
+  font-family: 'Monda', $font-base;
+  padding-top: 60px;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Roboto Slab', $font-base;
+}
+
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  .fa:before { font-size: 34px; }
+}
+
