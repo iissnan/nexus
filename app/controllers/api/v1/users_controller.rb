@@ -14,7 +14,8 @@ module Api
       end
 
       def show
-        @user = User.includes(:serial_number).find_by_name!(params[:name])
+        @user = User.includes(serial_number: [teams: [:matches]])
+                    .find_by_name!(params[:name])
         json_response(@user)
       end
 
@@ -50,7 +51,8 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :avatar, :display_name, :rating)
+        params.require(:user)
+            .permit(:name, :email, :avatar, :display_name, :rating)
       end
     end
   end

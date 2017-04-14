@@ -8,12 +8,15 @@ class Api::V1::MatchSerializer < ActiveModel::Serializer
   end
 
   class TeamSerializer < ActiveModel::Serializer
-    attributes :id, :name, :score, :users, :goals
+    attributes :id, :name, :score, :users, :win, :goals
 
     def score
-      @instance_options[:the_match].goals.reduce(0) do |score, goal|
-        goal.team_id == object.id ? score + goal.score : score
-      end
+      get_teams_score[:home]
+    end
+
+    def win
+      scores = get_teams_score
+      scores[:home] > scores[:away]
     end
 
     def users
@@ -27,11 +30,29 @@ class Api::V1::MatchSerializer < ActiveModel::Serializer
     end
 
     def goals
-      goals = @instance_options[:the_match].goals.map do |goal|
-        Api::V1::MatchSerializer::GoalSerializer.new(goal) if goal.team_id == object.id
+      goals = match.goals.map do |goal|
+        if goal.team_id == object.id
+          Api::V1::MatchSerializer::GoalSerializer.new(goal)
+        end
       end
       goals.compact
     end
+
+    protected
+
+    def get_teams_score
+      scores = { home: 0, away: 0 }
+      match.goals.each do |goal|
+        t = goal.team_id == object.id ? :home : :away
+        scores[t] = scores[t] + goal.score
+      end
+      scores
+    end
+
+    def match
+      @instance_options[:the_match]
+    end
+
   end
 
   class GoalSerializer < ActiveModel::Serializer
