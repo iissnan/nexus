@@ -1,0 +1,19 @@
+<app-nav></app-nav>
+
+<div class="container">
+  <h3>Bind your card number:</h3>
+  <form #form="ngForm" class="center-block" (ngSubmit)="bindNumber()">
+    <div class="alert"  *ngIf="bound"
+         [ngClass]="{'alert-success': result.success, 'alert-danger': !result.success}">
+      {{ result.message }}
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control"
+             id="number" name="number" title="Serial Number"
+             [(ngModel)]="number" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary login-button"
+            [disabled]="!form.valid">Bind</button>
+  </form>
+</div>

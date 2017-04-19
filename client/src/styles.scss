@@ -25,3 +25,10 @@ h1, h2, h3, h4, h5, h6,
   .fa:before { font-size: 34px; }
 }
 
+[disabled].btn,
+[disabled].btn:hover {
+  color: #888;
+  border-color: #eee;
+  background: #eee;
+}
+

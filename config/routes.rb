@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :users, param: :name, constraints: { name: %r{[^\/]+} } do
-        post 'sn', to: 'serial_numbers#create'
+        post 'sn', to: 'serial_numbers#bind'
         member do
           get 'matches'
           get 'teams'

@@ -18,7 +18,7 @@ RSpec.describe 'Users API', type: :request do
     end
   end
 
-  describe 'GET /users/:name' do
+  describe 'GET /api/users/:name' do
     before { get "/api/users/#{user_name}" }
 
     context 'when the record exists' do
@@ -95,6 +95,22 @@ RSpec.describe 'Users API', type: :request do
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
+    end
+  end
+
+  describe 'POST /api/users/:name/sn' do
+    context 'when the sn does not exist' do
+      it 'returns status code 200' do
+        number = Faker::Number.number(10)
+        params = { number: number }.to_json
+        post "/api/users/#{user_name}/sn", params: params, headers: headers
+        expect(users.first.serial_number.number).to equal(number)
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'when the sn exists' do
+
     end
   end
 end
