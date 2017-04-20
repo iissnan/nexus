@@ -4,8 +4,14 @@ module Api
   module V1
     class MatchesController < ApiController
       def index
-        @matches = Match.includes(match_includes).all
-        json_response(@matches)
+        @matches = Match.includes(match_includes)
+            .order(id: :desc)
+            .page(params[:page])
+        render json: @matches,
+               root: 'data',
+               each_serializer: Api::V1::MatchSerializer,
+               meta: pagination_dict(@matches),
+               status: :ok
       end
 
       def create

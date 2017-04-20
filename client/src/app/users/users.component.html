@@ -1,0 +1,38 @@
+<app-nav></app-nav>
+
+<div class="container">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Game Played</th>
+        <th>Points</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Wins/Loss Ratio</th>
+        <th>Winning Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let rank = index;">
+        <td>{{ rank + 1 }}</td>
+        <td>{{ user.display_name }}</td>
+        <td>{{ user.matches.length }}</td>
+        <td>{{ user.rating }}</td>
+        <td>{{ 1 }}</td>
+        <td>{{ 1 }}</td>
+        <td>{{ 0.944 }}</td>
+        <td>{{ 48.6 }}%</td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="navigation" *ngIf="pagination.items.length > 0">
+    <ul class="pagination">
+      <li *ngFor="let item of pagination.items; index as i"
+          [ngClass]="{'active': item.current }">
+        <a (click)="goPage(i + 1)">{{ i + 1 }}</a>
+      </li>
+    </ul>
+  </nav>
+</div>

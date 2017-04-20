@@ -4,8 +4,14 @@ module Api
   module V1
     class UsersController < ApiController
       def index
-        @users = User.includes(serial_number: [teams: [:matches]]).all
-        json_response(@users)
+        @users = User.includes(serial_number: [teams: [:matches]])
+                     .order(rating: :desc)
+                     .page(params[:page])
+        render json: @users,
+               root: 'data',
+               each_serializer: Api::V1::UserSerializer,
+               meta: pagination_dict(@users),
+               status: :ok
       end
 
       def create

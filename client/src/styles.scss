@@ -1,7 +1,9 @@
-@import "global/flatly/variables";
+//@import "global/flatly/variables";
+@import "global/slate/variables";
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-@import "global/flatly/flatly";
+//@import "global/flatly/flatly";
+@import "global/slate/slate";
 
 $fa-font-path: "~font-awesome/fonts/";
 @import "~font-awesome/scss/font-awesome";
@@ -9,13 +11,12 @@ $fa-font-path: "~font-awesome/fonts/";
 $font-base: "PingFang SC", "Microsoft YaHei", sans-serif;
 
 body {
-  font-family: 'Monda', $font-base;
-  padding-top: 60px;
+  font-family: 'Montserrat', $font-base;
 }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: 'Roboto Slab', $font-base;
+  font-family: 'Montserrat', $font-base;
 }
 
 
@@ -27,8 +28,9 @@ h1, h2, h3, h4, h5, h6,
 
 [disabled].btn,
 [disabled].btn:hover {
-  color: #888;
-  border-color: #eee;
-  background: #eee;
+  opacity: .65;
+  color: $btn-default-color;
+  border-color: $btn-default-border;
+  background: $btn-default-bg;
 }
 

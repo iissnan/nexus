@@ -1,3 +1,67 @@
-<p>
-  home works!
-</p>
+<app-nav></app-nav>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-hover table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Team One</th>
+            <th>Score</th>
+            <th>Team Two</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let match of matches">
+            <td>
+              <div class="match-meta">
+                <div class="match-id">{{ match.id }}</div>
+                <div class="match-start-time">
+                  <span class="text-muted">
+                    {{ getMatchDate(match.created_at) }}
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span *ngFor="let user of match.teams[0].users; let isLast = last">
+                {{ user.display_name }}
+                <span *ngIf="!isLast">/</span>
+              </span>
+            </td>
+            <td>
+              {{ match.teams[0].score }} : {{ match.teams[1].score }}
+            </td>
+            <td>
+              <span *ngFor="let user of match.teams[1].users; let isLast = last">
+                {{ user.display_name }}
+                <span *ngIf="!isLast">/</span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <table class="table table-hover table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Point</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index;">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.display_name }}</td>
+            <td>{{ user.rating }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+

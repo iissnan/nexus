@@ -4,8 +4,12 @@ module Api
   module V1
     class TeamsController < ApiController
       def index
-        @teams = Team.includes(:matches).all
-        json_response(@teams)
+        @teams = Team.includes(:matches).page(params[:page])
+        render json: @teams,
+               root: 'data',
+               each_serializer: Api::V1::TeamSerializer,
+               meta: pagination_dict(@teams),
+               status: :ok
       end
 
       def create
@@ -47,7 +51,8 @@ module Api
       private
 
       def team_params
-        params.require(:team).permit(:name, :sn1, :sn2, :sn1_position, :sn2_position)
+        params.require(:team)
+            .permit(:name, :sn1, :sn2, :sn1_position, :sn2_position)
       end
     end
   end

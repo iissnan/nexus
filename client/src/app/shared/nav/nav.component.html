@@ -1,10 +1,20 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
   <div class="container">
-    <div class="navbar-header">
-
-    </div>
+    <div class="navbar-header"></div>
     <a class="navbar-brand" href="/">
       <i class="fa fa-wpexplorer"></i>
     </a>
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active"><a routerLink="/matches">Matches</a></li>
+      <li routerLinkActive="active"><a routerLink="/users">Players Stats</a></li>
+      <li routerLinkActive="active"><a routerLink="/teams">Teams Stats</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li routerLinkActive="active">
+        <a routerLink="/login">
+          <i class="fa fa-user-circle"></i> Login
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>

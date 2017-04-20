@@ -7,6 +7,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from "./app-routing.module";
 import { UsersModule } from './users/users.module';
+import { MatchesModule } from "./matches/matches.module";
+import { TeamsModule } from "./teams/teams.module";
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
@@ -26,7 +28,9 @@ import { HomeComponent } from './home/home.component';
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    UsersModule
+    UsersModule,
+    MatchesModule,
+    TeamsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

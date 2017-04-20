@@ -10,7 +10,7 @@ RSpec.describe 'Teams API', type: :request do
 
     it 'returns teams' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json['data'].size).to eq(10)
     end
 
     it 'returns status code 200' do

@@ -77,4 +77,27 @@ export class ApiService {
     return this.request(endpoint, requestOptions);
   }
 
+  getMatches(options?: any): Observable<Response> {
+    let requestParams = {
+      page: options.page || 1,
+      per_page: options.per_page
+    };
+    let requestOptions: RequestOptionsArgs = {
+      method: RequestMethod.Get,
+      params: requestParams
+    };
+    return this.request(ENDPOINTS.MATCHES, requestOptions);
+  }
+
+  getUsers(options?: any): Observable<Response> {
+    let requestParams = {
+      page: options.page || 1,
+      per_page: options.per_page
+    };
+    let requestOptions: RequestOptionsArgs = {
+      method: RequestMethod.Get,
+      params: requestParams
+    };
+    return this.request(ENDPOINTS.USERS, requestOptions);
+  }
 }
