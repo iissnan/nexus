@@ -25,6 +25,6 @@ class Api::V1::GoalsController < ApplicationController
   def goal_params
     params
         .require(:goal)
-        .permit(:match_id, :team_id, :score, :sn1, :sn2, :at)
+        .permit(:match_id, :team_id, :score, :at)
   end
 end

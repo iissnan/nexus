@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 20170411044722) do
     t.integer  "match_id"
     t.integer  "team_id"
     t.integer  "score"
-    t.string   "sn1",        null: false
-    t.string   "sn2"
     t.datetime "at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,10 +51,12 @@ ActiveRecord::Schema.define(version: 20170411044722) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.integer  "team1_id",   null: false
-    t.integer  "team2_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "team1_id",    null: false
+    t.integer  "team2_id",    null: false
+    t.integer  "team1_score"
+    t.integer  "team2_score"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["team1_id"], name: "index_matches_on_team1_id"
     t.index ["team2_id"], name: "index_matches_on_team2_id"
   end
