@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.text :display_name
       t.text :avatar
       t.integer :rating, default: 2000
+      t.boolean :sn_fixed, default: false
 
       t.timestamps
     end

@@ -82,13 +82,14 @@ ActiveRecord::Schema.define(version: 20170411044722) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                        null: false
+    t.string   "name",                         null: false
     t.string   "email"
     t.text     "display_name"
     t.text     "avatar"
     t.integer  "rating",       default: 2000
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "sn_fixed",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
 end
