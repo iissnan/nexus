@@ -15,8 +15,15 @@ module Api
       end
 
       def create
-        @match = Match.create!(match_params)
-        json_response(@match, :created)
+        begin
+          Team.find(params[:team1_id], params[:team2_id])
+          @match = Match.create!(match_params)
+          @match.fights.create!(match_id: @match.id, team_id: params[:team1_id])
+          @match.fights.create!(match_id: @match.id, team_id: params[:team2_id])
+          render json: @match, root: :data, status: :created
+        rescue ActiveRecord::RecordNotFound
+          render json: { message: 'Invalid team' }, status: :bad_request
+        end
       end
 
       def show
@@ -43,8 +50,6 @@ module Api
             .permit(
               :team1_id,
               :team2_id,
-              :team1_score,
-              :team2_score,
               :created_at,
               :updated_at
             )
