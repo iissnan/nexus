@@ -6,28 +6,24 @@ module Api
       def index
         @teams = Team.includes(:matches).page(params[:page])
         render json: @teams,
-               root: 'data',
+               root: :data,
                each_serializer: Api::V1::TeamSerializer,
                meta: pagination_dict(@teams),
                status: :ok
       end
 
       def create
-        find_params = { sn1: params[:sn1] }
-        find_params[:sn2] = params[:sn2].blank? ? params[:sn2] : nil
+        @team = Team.find_or_create_by!({
+          sn1: params[:sn1],
+          sn2: params[:sn2]
+        })
 
-        @team = Team.find_or_initialize_by(find_params)
-
-        unless @team.persisted?
-          @team = Team.create!(team_params)
-        end
-
-        json_response(@team, :created)
+        render json: @team, root: :data, status: :created
       end
 
       def show
         @team = Team.includes(:matches).find(params[:id])
-        json_response(@team)
+        render json: @team, root: :data, status: :ok
       end
 
       def update
@@ -45,7 +41,7 @@ module Api
         @matches = Match.includes(match_includes)
                        .joins(:teams)
                        .where('team_id = ?', params[:id])
-        json_response(@matches)
+        render json: @matches, root: :data, status: :ok
       end
 
       private
